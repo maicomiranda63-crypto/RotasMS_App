@@ -1,0 +1,19 @@
+[app]
+title = Rotas MS Mobile
+package.name = rotasmsmobile
+package.domain = org.rotasms
+source.dir = .
+source.exts = py,png,jpg,kv,gpkg
+version = 0.1
+requirements = python3,kivy,requests,urllib3,certifi,idna,charset-normalizer,networkx,shapely,fiona
+orientation = portrait
+fullscreen = 0
+android.permissions = WRITE_EXTERNAL_STORAGE,READ_EXTERNAL_STORAGE,INTERNET
+android.api = 33
+android.minapi = 21
+android.ndk = 25b
+android.archs = arm64-v8a
+
+[buildozer]
+log_level = 2
+warn_on_root = 1
