@@ -1,0 +1,41 @@
+name: Compilar APK Rotas MS
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar Repositório
+      uses: actions/checkout@v4
+
+    - name: Configurar Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Instalar Dependências do Sistema
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y \
+            git zip unzip openjdk-17-jdk python3-pip autoconf libtool \
+            pkg-config zlib1g-dev libncurses5-dev libncursesw5-dev libtinfo5 \
+            libffi-dev libssl-dev libgeos-dev libgdal-dev
+
+    - name: Instalar Buildozer e Cython
+      run: |
+        pip install --upgrade pip
+        pip install Cython==0.29.36 buildozer
+
+    - name: Compilar APK com Buildozer
+      run: |
+        buildozer -v android debug
+
+    - name: Salvar o APK gerado
+      uses: actions/upload-artifact@v4
+      with:
+        name: rotas-ms-apk
+        path: bin/*.apk
